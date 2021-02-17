@@ -1,6 +1,6 @@
 res=0
 for e in range(1, 21):
-    print(e, end=' ')
+    print('Now your res is equal to ', res)
     res +=e
 
 print('Total sum =', res)
