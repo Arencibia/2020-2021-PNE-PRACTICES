@@ -15,8 +15,8 @@ def count_bases(dna):
         else:
             t +=1
     return a, c, g, t
-def read_from_file(filename)
-    with open(filename, 'r') as f
+def read_from_file(filename):
+    with open(filename, 'r') as f:
         dna= f.read()
         dna= dna.replace('\n', "")
         return dna
