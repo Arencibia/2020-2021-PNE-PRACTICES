@@ -15,8 +15,12 @@ def count_bases(dna):
         else:
             t +=1
     return a, c, g, t
-
-dna= input('Introduce the sequence: ')
+def read_from_file(filename)
+    with open(filename, 'r') as f
+        dna= f.read()
+        dna= dna.replace('\n', "")
+        return dna
+dna= read_from_file('dna.txt')
 if correct_sequence(dna):
     print('Total length is : ', len(dna))
     a, c, g, t, = count_bases(dna)
