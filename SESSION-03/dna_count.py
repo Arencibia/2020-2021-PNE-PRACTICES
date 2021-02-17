@@ -1,6 +1,6 @@
 def correct_sequence(dna):
-    for d in dna:
-        if d != 'A' and d != 'C' and d != 'G' and d != 'T':
+    for i in dna:
+        if i != 'A' and i != 'C' and i != 'G' and i != 'T':
             return False
     return True
 def count_bases(dna):
