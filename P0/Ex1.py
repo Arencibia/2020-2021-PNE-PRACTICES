@@ -1,2 +1,3 @@
-from .Seq0 import seq_ping
-print('We are testing seq_ping()')
+import Seq0
+print('We are testing Seq0 module')
+Seq0.seq_ping()
