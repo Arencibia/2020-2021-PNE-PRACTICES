@@ -21,3 +21,6 @@ def seq_count(seq):
         gene_dict[d] +=1
     return gene_dict
 
+def seq_reverse(seq):
+    return seq[::-1]
+
