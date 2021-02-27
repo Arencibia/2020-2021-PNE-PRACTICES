@@ -24,3 +24,15 @@ def seq_count(seq):
 def seq_reverse(seq):
     return seq[::-1]
 
+def seq_complement(seq):
+    bases = ["A", "C", "T", "G"]
+    bases_complementary = ["T", "G", "A", "C"]
+    dict_bases_complementary = dict(zip(bases, bases_complementary))
+    complementary = ""
+    for i in seq:
+        for base, bases_co in dict_bases_complementary.items():
+            if i == base:
+                complementary += bases_co
+
+    return complementary 
+
