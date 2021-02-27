@@ -8,4 +8,4 @@ print("------|EXERCISE 7|------")
 
 print("Gene " + ID)
 print("Frag:", U5_seq[0:20])
-print("Rev:", Seq0.seq_complement(U5_seq[0:20]))  # Returns a complementary DNA sequence
+print("Rev:", Seq0.seq_complement(U5_seq[0:20]))
