@@ -11,7 +11,7 @@ def seq_read_fasta(filename):
     return sequence
 
 def seq_len(seq):
-    return len(seq) #bc every time we call seq_len we will have first called seq_read_fasta
+    return len(seq)
 
 def seq_count_base(seq, base):
     return seq.count(base)
