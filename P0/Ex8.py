@@ -16,4 +16,4 @@ for gene in gene_list:
         while value > min_value:
             min_value = value
             best_base = base
-    print("Gene", gene , ": Most frequent Base: ", best_base)
+    print("Gene", gene , ": Most frequent Base: ", best_base, ": value", min_value)
