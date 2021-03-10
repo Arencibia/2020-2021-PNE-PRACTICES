@@ -1,74 +1,124 @@
-import pathlib
+from pathlib import Path
+import termcolor
 
 
 class Seq:
-    """A class for representing sequence objects"""
+    NULL_SEQUENCE = "NULL"
+    INVALID_SEQUENCE = "ERROR"
 
-    def __init__(self, strbases="NULL"):
-        if strbases == "NULL":
-            print("NULL Seq Created")
-            self.strbases = "NULL"
-            self.length = 0
+    def __init__(self, str_bases=NULL_SEQUENCE):
+        if str_bases == Seq.NULL_SEQUENCE:
+            print("NULL seq created.")
+            self.str_bases = str_bases
+        elif Seq.is_valid_seq2(str_bases):
+            self.str_bases = str_bases
+            print("New sequence created!")
         else:
-            v = True
-            i = 0
-            while i < len(strbases) and v:
-                if (strbases[i] != "A") and (strbases[i] != "C") and (strbases[i] != "G") and (strbases[i] != "T"):
-                    v = False
-                    self.strbases = "ERROR"
-                    self.length = 0
-                    print("INVALID Seq!")
-                else:
-                    i += 1
+            self.str_bases = Seq.INVALID_SEQUENCE
+            print("INVALID Seq!")
 
-            if v and strbases != "NULL":
-                print("New sequence created!")
-                self.strbases = strbases
-                self.length = len(self.strbases)
+    @staticmethod
+    def is_valid_seq2(str_bases):
+        for i in str_bases:
+            if i != "A" and i != "C" and i != "G" and i != "T":
+                return False
+        return True
+
+    @staticmethod
+    def print_seqs(seq_list):
+        for i in range(0, len(seq_list)):
+            text = "Sequence" + str(i) + "(Length: " + str(seq_list[i].len()) + "):" + str(seq_list[i])
+            termcolor.cprint(text, "red")
+
+    def is_valid_seq(self):
+        for i in self.str_bases:
+            if i != "A" and i != "C" and i != "G" and i != "T":
+                return False
+        return True
 
     def __str__(self):
-        return self.strbases
+        return self.str_bases
 
     def len(self):
-        return self.length
+        if self.str_bases == Seq.NULL_SEQUENCE or self.str_bases == Seq.INVALID_SEQUENCE:
+            return 0
+        else:
+            return len(self.str_bases)
 
-    def count_base(self, base):
-        return self.strbases.count(base)
+    def count_bases(self):
+        a, c, g, t = 0, 0, 0, 0
+        if not (self.str_bases == Seq.NULL_SEQUENCE) and not (self.str_bases == Seq.INVALID_SEQUENCE):
+            for ch in self.str_bases:
+                if ch == "A":
+                    a += 1
+                elif ch == "T":
+                    t += 1
+                elif ch == "G":
+                    g += 1
+                elif ch == "C":
+                    c += 1
+        return a, c, g, t
 
     def count(self):
-        bases = ["A", "C", "T", "G"]
-        count_bases = []
-        for base in bases:
-            count_bases.append(self.count_base(base))
-        dictionary = dict(zip(bases, count_bases))
-        return dictionary
+        a, c, g, t = self.count_bases()
+        return {"A" : a, "C": c, "G" : g, "T" : t}
 
     def reverse(self):
-        if not len(self.strbases) and not self.len():
-            return self.strbases
-        elif not self.len():
-            return self.strbases
+        if self.str_bases == Seq.NULL_SEQUENCE:
+            return "NULL"
+        elif self.str_bases == Seq.INVALID_SEQUENCE:
+            return "ERROR"
         else:
-            return self.strbases[::-1]
+            return self.str_bases[::-1]
 
     def complement(self):
-        if not len(self.strbases) and not self.len():
-            return self.strbases
-        elif not self.len():
-            return self.strbases
+        if self.str_bases == Seq.NULL_SEQUENCE:
+            return "NULL"
+        elif self.str_bases == Seq.INVALID_SEQUENCE:
+            return "ERROR"
         else:
-            bases = ["A", "C", "T", "G"]
-            bases_complementary = ["T", "G", "A", "C"]
-            dict_bases_complemenytary = dict(zip(bases, bases_complementary))
-            complementary = ""
-            for i in self.strbases:
-                for base, bases_co in dict_bases_complemenytary.items():
-                    if i == base:
-                        complementary += bases_co
-            return complementary
+            complement = ""
+            for ch in self.str_bases:
+                if ch == "A":
+                    complement += "T"
+                elif ch == "T":
+                    complement += "A"
+                elif ch == "G":
+                    complement += "C"
+                elif ch == "C":
+                    complement += "G"
+            return complement
+
+    @staticmethod
+    def take_out_first_line(seq):
+        return seq[seq.find("\n") + 1:].replace("\n", "")
 
     def read_fasta(self, filename):
-        file_contents = pathlib.Path(filename).read_text().split('\n')[1:]
-        new_file = "".join(file_contents)
-        self.strbases = new_file
-        self.length = len(self.strbases)
+        self.str_bases = Seq.take_out_first_line(Path(filename).read_text())
+
+
+
+
+
+
+
+
+
+
+
+def seq_frequent(dict_count):
+    return max(dict_count, key=dict_count.get)
+
+
+def generate_seqs(pattern, number):
+    seq = []
+    for e in range(0, number):
+        seq.append(Seq(pattern * (e + 1)))
+    return seq
+
+
+def test_sequences():
+    s1 = Seq()
+    s2 = Seq("ACGTA")
+    s3 = Seq("Invalid sequence")
+    return s1, s2, s3
