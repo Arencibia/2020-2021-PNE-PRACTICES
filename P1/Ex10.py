@@ -16,5 +16,5 @@ for file in files_list:
 
         while value > min_value:
             min_value = value
-            best_base = 'a'
+            best_base = base
     print(f"Gene {file}: Most frequent Base: {best_base}")
