@@ -94,27 +94,14 @@ class Seq:
         return seq[seq.find("\n") + 1:].replace("\n", "")
 
     def read_fasta(self, filename):
-        self.str_bases = Seq.take_out_first_line(Path(filename).read_text())
-
-
-
-
-
-
-
-
-
-
+        sequence = Path(filename).read_text()
+        genome = sequence[sequence.find("\n") + 1:].replace("\n", "")
+        self.sequence = genome
+        return self.sequence
 
 def seq_frequent(dict_count):
     return max(dict_count, key=dict_count.get)
 
-
-def generate_seqs(pattern, number):
-    seq = []
-    for e in range(0, number):
-        seq.append(Seq(pattern * (e + 1)))
-    return seq
 
 
 def test_sequences():
