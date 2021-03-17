@@ -5,6 +5,7 @@ from Seq1 import Seq
 IP="127.0.0.1"
 PORT=10000
 c= Client(IP,PORT)
+print("-----| Exercise 6 |------")
 
 s=Seq()
 s.read_fasta("../P0/sequences/FRAT1.txt")

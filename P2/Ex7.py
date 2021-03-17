@@ -7,6 +7,7 @@ PORT=10000
 PORT2=20000
 c= Client(IP,PORT)
 c2=Client(IP,PORT2)
+print("-----| Exercise 7 |------")
 s=Seq()
 s.read_fasta("../P0/sequences/FRAT1.txt")
 count=0
