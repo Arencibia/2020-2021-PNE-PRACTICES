@@ -1,5 +1,6 @@
 import socket
 
+
 # Configure the Server's IP and PORT
 PORT = 10000
 IP = "127.0.0.1"
@@ -30,6 +31,7 @@ try:
         # Read the message from the client, if any
         msg = clientsocket.recv(2048).decode("utf-8")
         print("Message from client: {}".format(msg))
+
 
         # Send the messag
         message = "Hello from the teacher's server"

@@ -9,7 +9,6 @@ def take_out_first_line(seq):
 def seq_read_fasta(filename):
     sequence = take_out_first_line(Path(filename).read_text())
     return sequence
-
 def seq_len(seq):
     return len(seq)
 

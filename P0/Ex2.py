@@ -1,7 +1,7 @@
-import Seq0
+from Seq0 import seq_read_fasta
 FOLDER = "./sequences/"
 ID = 'U5.txt'
-U5_Seq = Seq0.seq_read_fasta(FOLDER + ID)
+U5_Seq = seq_read_fasta(FOLDER + ID)
 
 print("------|EXERCISE 2|------")
 
