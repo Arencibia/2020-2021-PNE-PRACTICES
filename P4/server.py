@@ -53,7 +53,7 @@ def process_client(s):
     else:
         body = read_html_file(HTML_ASSETS + "error.html")
     """if path_name == "/info/A":
-        body = read_html_file(HTML_ASSETS + "A.html")
+        body = read_html_file(HTML_ASSETS + "AS.html")
     elif path_name == "/info/C":
         body = read_html_file(HTML_ASSETS + "C.html")
     elif path_name == "/info/G":
