@@ -1,7 +1,6 @@
 import socket
 import server_utils
-list_sequence = ["ATTCGATGTGCTAGTCGATGCTGTGTACGTCAGTCAGTCGAT", "CAGTAGATGACGAGCGATGAGCAACCGCATCGAT", "ACGATATAGGAGATATGAGGACACACAATGAGATACA",
-     "CAGTACAGATAGAGACATAGATATCACTATACAAAAAAAAAAGTTGAGTA", "CGATACGCAGACTATCGACTAGATATA"]
+list_sequences = ['ACCGTGGTGTAACGAAA', 'ATTTGCTGTCTCT', 'CTCTCTCGAGAGAG', 'TACTCGGCCG', 'CGCGTAGGGATGACGTAGC']
 
 ls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ls.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -44,18 +43,19 @@ while True:
         command = formatted_message[0]
         argument = formatted_message[1]
 
-    if command == "PING":
-        server_utils.ping()
-        response = "OK!"
-        cs.send(str(response).encode())
-
-    elif command == "GET":
-        server_utils.print_colored("GET", "yellow")
-        response = list_sequence[int(argument)]
-        cs.send(str(response + str("\n")).encode())
-
+    if command == 'PING':
+        server_utils.ping(cs)
+    elif command == 'GET':
+        server_utils.get(cs, list_sequences, argument)
+    elif command == 'INFO':
+        server_utils.info(cs, argument)
+    elif command == 'COMP':
+        server_utils.comp(cs, argument)
+    elif command == 'REV':
+        server_utils.rev(cs, argument)
+    elif command == 'GENE':
+        server_utils.gene(cs, argument)
     else:
-        response = "Not available command" + "\n"
+        response = 'Not available command.'
         cs.send(str(response).encode())
-
     cs.close()
