@@ -63,6 +63,13 @@ class Seq:
         a, c, g, t = self.count_bases()
         return {"A" : a, "C": c, "G" : g, "T" : t}
 
+    def percentaes(self):
+        a, c, t, g= self.count_bases()
+        per_a="(" + str(round(a/self.len() * 100, 1)) + "%)"
+        per_c="(" + str(round(c/self.len() * 100, 1)) + "%)"
+        per_t="(" + str(round(t/self.len() * 100, 1)) + "%)"
+        per_g="(" + str(round(g/self.len() * 100, 1)) + "%)"
+        return "A: " + str(a) + " " + per_a + "\n" + "C: " + str(c) + " " + per_c + "\n" + "T: " + str(t) + " " + per_t + "\n" + "G: " + str(g) + " " + per_g
     def reverse(self):
         if self.str_bases == Seq.NULL_SEQUENCE:
             return "NULL"
