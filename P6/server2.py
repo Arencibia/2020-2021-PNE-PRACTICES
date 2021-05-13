@@ -4,7 +4,7 @@ import termcolor
 from urllib.parse import urlparse, parse_qs
 import server_utils as su
 
-PORT = 8080
+PORT = 8084
 
 list_sequences = ['ACCGTGGTGTAACGAAA', 'ATTTGCTGTCTCT', 'CTCTCTCGAGAGAG', 'TACTCGGCCG', 'CGCGTAGGGATGACGTAGC']
 list_genes = ['ADA', 'FRAT1', 'FXN', 'RNU6_269P', 'U5']

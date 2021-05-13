@@ -1,36 +1,31 @@
 from Client0 import Client
 
-list_sequences = ['ACCGTGGTGTAACGAAA', 'ATTTGCTGTCTCT', 'CTCTCTCGAGAGAG', 'TACTCGGCCG', 'CGCGTAGGGATGACGTAGC']
-list_genes = ['U5', 'ADA', 'FRAT1', 'FXN', 'RNU6_269P']
-
 IP = "127.0.0.1"
-PORT = 8080
+PORT = 8081
 
 c = Client(IP, PORT)
-print('Connection to SERVER. Client ip, port: ', str(IP) + ',', str(PORT))
+print("Connection to SERVER at " + IP + ", PORT:" + str(PORT))
 
-print("- Testing ping...")
-response = c.talk("ping")
-print(f"{response}")
+print("* Testing PING...")
+print(c.talk("PING"), end="\n\n")
 
-print("- Testing get...")
-for n in range(0, len(list_sequences)):
-    response = c.talk("get " + str(n))
-    print(f"{response}")
+print("* Testing GET...")
+for i in range(0, 4):
+    print("GET " + str(i) + ": " + c.talk("GET " + str(i)))
 
-print("- Testing info...")
-response = c.talk("info " + list_sequences[0])
-print(f"{response}")
+# Sequence from Get 0
+sequence = "AGATCGCGCCACTTCACTGC"
 
-print("- Testing comp...")
-response = c.talk("comp " + list_sequences[0])
-print(f"{response}")
+print("\n\n* Testing INFO...")
+print(c.talk("INFO " + sequence), end="\n\n")
 
-print("- Testing rev...")
-response = c.talk("rev " + list_sequences[0])
-print(f"{response}")
+print("* Testing COMP...")
+print("COMP " + sequence + "\n" + c.talk("COMP " + sequence), end="\n\n")
 
-print("- Testing gene...")
-for gene in list_genes:
-    response = c.talk("gene " + gene)
-    print(f"{response}")
+print("* Testing REV...")
+print("REV " + sequence + "\n" + c.talk("REV " + sequence), end="\n\n")
+
+gene_list = ["U5", "ADA", "FRAT1", "FXN", "RNU6_269P"]
+print("* Testing GENE...")
+for gene in gene_list:
+    print("GENE " + gene + "\n" + c.talk("GENE " + gene), end="\n\n")

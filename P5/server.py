@@ -4,7 +4,7 @@ import termcolor
 import pathlib
 
 # Define the Server's port
-PORT = 8080
+PORT = 8089
 
 # -- This is for preventing the error: "Port already in use"
 socketserver.TCPServer.allow_reuse_address = True
