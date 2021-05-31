@@ -2,12 +2,13 @@ import http.server
 import socketserver
 import termcolor
 import utils
+from urllib.parse import urlparse, parse_qs
 import pathlib
 import json
 import jinja2
 
 # Define the Server's port
-PORT = 5000
+PORT = 5002
 
 # Class with our Handler. It is a called derived from BaseHTTPRequestHandler
 # It means that our class inheritates all his methods and properties
@@ -28,14 +29,24 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
         try:
             if path_name== '/':
-                contents = SU.read
+                contents = utils.read_html_file('html/index.html').render()
+            elif path_name=='/listSpecies':
+                contents=
+            elif path_name == '/karyotype':
+                contents=
+            elif path_name == '/chromosomeLength':
+        except KeyError:
+            contents = utils.read_html_file('html/error.html').render()
+            print(contents)
+
 
         # Generating the response message
+
         self.send_response(200)  # -- Status line: OK!
 
         # Define the content-type header:
         self.send_header('Content-Type', 'text/html')
-        self.send_header('Content-Length', len(str.encode(contents)))
+        self.send_header('Content-Length', str(len(contents.encode())))
 
         # The header is finished
         self.end_headers()
