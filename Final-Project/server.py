@@ -1,7 +1,10 @@
 import http.server
 import socketserver
 import termcolor
-from pathlib import Path
+import utils
+import pathlib
+import json
+import jinja2
 
 # Define the Server's port
 PORT = 5000
@@ -17,9 +20,15 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         # Print the request line
         termcolor.cprint(self.requestline, 'green')
 
-        # Open the form.html file
-        # Read the index from the file
-        contents = Path('form.html').read_text()
+        o =urlparse(self.path)
+        path_name= o.path
+        arguments=parse_qs(o.query)
+        print("Resource requested", path_name)
+        print("Parameters:", arguments)
+
+        try:
+            if path_name== '/':
+                contents = SU.read
 
         # Generating the response message
         self.send_response(200)  # -- Status line: OK!
