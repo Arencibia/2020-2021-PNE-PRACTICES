@@ -6,7 +6,7 @@ REPORT BASIC LEVEL
 *TEST 1:
 
 *INPUT
-http://localhost:8080/listSpecies?limit=5
+http://localhost:9090/listSpecies?limit=5
 
 *OUTPUT
 <!DOCTYPE html>
@@ -34,13 +34,27 @@ http://localhost:8080/listSpecies?limit=5
     </ul>
 </body>
 </html>
-
+-----------------------------------------------
 *TEST2
 
 *INPUT
+http://localhost:9090/listSpecies?limit=h
 
 
 *OUTPUT
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>OOPS!</title>
+    </head>
+    <body style="background: red">
+        <h1>ERROR</h1>
+        <p>OOPS! SOMETHING WENT WRONG</p>
+        <p>The data you introduced is wrong or is not in the server</p>
+        <p>Try again with valid data!!!</p>
+    </body>
+</html>
 ============================================================
 
 --------> Karyotype Endpoint
@@ -48,7 +62,7 @@ http://localhost:8080/listSpecies?limit=5
 *TEST 1
 
 *INPUT
-http://localhost:8080/karyotype?specie=human
+http://localhost:9090/karyotype?specie=human
 
 *OUTPUT
 <!DOCTYPE html>
@@ -111,4 +125,65 @@ http://localhost:8080/karyotype?specie=human
         <p>MT</p>
     }
 </body>
+</html>
+---------------------------------------------
+*TEST 2
+
+*INPUT
+http://localhost:9090/karyotype?specie=4
+
+*OUTPUT
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>OOPS!</title>
+    </head>
+    <body style="background: red">
+        <h1>ERROR</h1>
+        <p>OOPS! SOMETHING WENT WRONG</p>
+        <p>The data you introduced is wrong or is not in the server</p>
+        <p>Try again with valid data!!!</p>
+    </body>
+</html>
+=========================================
+
+----------> Chromosome Length Endpoint
+
+*Test 1
+
+*Input
+http://localhost:9090/chromosomeLength?specie=human&chromo=7
+
+*Output
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chromosome Length</title>
+</head>
+<body style="background: lightskyblue">
+    <p>The length of chromosome is: 159345973</p>
+</body>
+</html>
+------------------------------------------------------------------
+
+*TEST 2
+
+*INPUT
+http://localhost:9090/chromosomeLength?specie=7&chromo=7
+
+*OUTPUT
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>OOPS!</title>
+    </head>
+    <body style="background: red">
+        <h1>ERROR</h1>
+        <p>OOPS! SOMETHING WENT WRONG</p>
+        <p>The data you introduced is wrong or is not in the server</p>
+        <p>Try again with valid data!!!</p>
+    </body>
 </html>

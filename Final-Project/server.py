@@ -6,7 +6,7 @@ import utils
 from pathlib import Path
 
 
-PORT = 9999
+PORT = 9090
 ENDPOINTS = ["/listSpecies",
              "/karyotype",
              "/chromosomeLength",
