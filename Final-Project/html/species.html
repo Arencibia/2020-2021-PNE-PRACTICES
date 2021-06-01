@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Species</title>
+</head>
+<body style="background: lightskyblue">
+    <p>The total number of species in the ensembl is: {{context.total}}</p>
+    <p>The limit you have selected is: {{context.limit}}</p>
+    <p>The names of the species are: </p>
+    <ul>
+        {% for specie in context.species: %}
+          <li>{{specie["display_name"]}}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

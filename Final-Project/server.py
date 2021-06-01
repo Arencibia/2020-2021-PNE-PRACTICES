@@ -1,78 +1,94 @@
 import http.server
 import socketserver
 import termcolor
-import utils
 from urllib.parse import urlparse, parse_qs
-import pathlib
-import json
-import jinja2
+import utils
+from pathlib import Path
 
-# Define the Server's port
-PORT = 5002
 
-# Class with our Handler. It is a called derived from BaseHTTPRequestHandler
-# It means that our class inheritates all his methods and properties
+PORT = 9999
+ENDPOINTS = ["/listSpecies",
+             "/karyotype",
+             "/chromosomeLength",
+             "/"]
+
+
 class TestHandler(http.server.BaseHTTPRequestHandler):
-
     def do_GET(self):
-        """This method is called whenever the client invokes the GET method
-        in the HTTP protocol request"""
-
-        # Print the request line
         termcolor.cprint(self.requestline, 'green')
+        termcolor.cprint(self.path, "blue")
 
-        o =urlparse(self.path)
-        path_name= o.path
-        arguments=parse_qs(o.query)
-        print("Resource requested", path_name)
-        print("Parameters:", arguments)
+        url = urlparse(self.path)
+        endpoint = url.path
+        argument = parse_qs(url.query)
+        print("Endpoint: ", endpoint)
+        print("Argument: ", argument)
 
-        try:
-            if path_name== '/':
-                contents = utils.read_html_file('html/index.html').render()
-            elif path_name=='/listSpecies':
-                contents=
-            elif path_name == '/karyotype':
-                contents=
-            elif path_name == '/chromosomeLength':
-        except KeyError:
-            contents = utils.read_html_file('html/error.html').render()
-            print(contents)
+        GOOD_REQUEST = 200
+        BAD_REQUEST = 400
+
+        contents = ""
+        status = BAD_REQUEST
+
+        if endpoint in ENDPOINTS:
+            if endpoint == "/":
+                status = GOOD_REQUEST
+                contents = Path("./html/index.html").read_text()
+            elif endpoint == "/listSpecies":
+                if len(argument) == 0:
+                    status, contents = utils.list_species()
+                elif len(argument) == 1:
+                    try:
+                        limit = int(argument['limit'][0])
+                        status, contents = utils.list_species(limit)
+                        print(contents)
+                    except (KeyError, ValueError):
+                        contents = Path("./html/error.html").read_text()
+                        print(contents)
+                else:
+                    contents = Path("./html/error.html").read_text()
+                    print(contents)
+            elif endpoint == "/karyotype":
+                if len(argument) == 1:
+                    try:
+                        specie = argument['specie'][0]
+                        status, contents = utils.karyotype(specie)
+                        print(contents)
+                    except (KeyError, ValueError):
+                        contents = Path("./html/error.html").read_text()
+                        print(contents)
+                else:
+                    contents = Path("./html/error.html").read_text()
+                    print(contents)
+            elif endpoint == "/chromosomeLength":
+                if len(argument) == 2:
+                    try:
+                        specie = argument['specie'][0]
+                        chromo = argument['chromo'][0]
+                        status, contents = utils.chromosome_length(specie, chromo)
+                        print(contents)
+                    except (KeyError, ValueError):
+                        contents = Path("./html/error.html").read_text()
+                        print(contents)
+                else:
+                    contents = Path("./html/error.html").read_text()
+                    print(contents)
 
 
-        # Generating the response message
 
-        self.send_response(200)  # -- Status line: OK!
-
-        # Define the content-type header:
+        self.send_response(status)
         self.send_header('Content-Type', 'text/html')
         self.send_header('Content-Length', str(len(contents.encode())))
-
-        # The header is finished
         self.end_headers()
+        self.wfile.write(contents.encode())
 
-        # Send the response message
-        self.wfile.write(str.encode(contents))
-
-        return
-
-
-# ------------------------
-# - Server MAIN program
-# ------------------------
-# -- Set the new handler
-Handler = TestHandler
-
-# -- Open the socket server
-with socketserver.TCPServer(("", PORT), Handler) as httpd:
-
+handler = TestHandler
+with socketserver.TCPServer(("", PORT), handler) as httpd:
     print("Serving at PORT", PORT)
 
-    # -- Main loop: Attend the client. Whenever there is a new
-    # -- clint, the handler is called
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
         print("")
-        print("Stoped by the user")
+        print("Stopped by the user")
         httpd.server_close()
