@@ -34,6 +34,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             if endpoint == "/":
                 status = GOOD_REQUEST
                 contents = Path("./html/index.html").read_text()
+                print(contents)
             elif endpoint == "/listSpecies":
                 if len(argument) == 0:
                     status, contents = utils.list_species()

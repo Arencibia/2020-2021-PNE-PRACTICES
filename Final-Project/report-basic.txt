@@ -187,3 +187,46 @@ http://localhost:9090/chromosomeLength?specie=7&chromo=7
         <p>Try again with valid data!!!</p>
     </body>
 </html>
+=========================================
+
+----------> No endpoint
+
+*Test 1
+
+*Input
+http://localhost:9090/
+
+*Output
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <title>Welcome!</title>
+ </head>
+ <body style="background-color: lightblue">
+  <h1>Browsing Humans and Vertebrates Genome</h1>
+  <h2>Basic Level Services</h2>
+
+ <p>1) List of species in the genome database</p>
+ <form action="listSpecies" method="get">
+     Limit:
+     <input type="text" name="limit"><br><br>
+     <input type="submit" value="Send"><br><br>
+ </form>
+
+ <p>2) Information about the karyotype of a specie</p>
+ <form action="karyotype" method="get">
+     Select the specie:
+     <input type="text" name="specie"><br><br>
+     <input type="submit" value="Send"><br><br>
+ </form>
+<form action="chromosomeLength" method="get">
+  <p>3) Chromosome length</p>
+    Select the specie:
+     <input type="text" name="specie"><br><br>
+    Select the chromosome
+    <input type="text" name="chromo"><br><br>
+    <input type="submit" value="Send"><br><br>
+ </form>
+ </body>
+</html>
